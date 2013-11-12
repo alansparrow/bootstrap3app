@@ -1,0 +1,30 @@
+1. Put bootstrap.min.css and bootstrap.min.js into vendor/assets/stylesheets and vender/assets/javascripts.
+
+2. Put fonts folder into vendor/assets.
+   Actually, the folder name can vary, the important things are it must be a subdir of any asset dir, and contain the files we    want to search for.
+
+3. Add
+	*= require bootstrap.min
+	//= require bootstrap.min
+   into app/assets/stylesheets/application.css and app/assets/javascripts/application.js
+
+4. Fix some code in bootstrap.min.css to make the find-path of fonts and icons correct
+   
+FROM
+
+@font-face {
+font-family: 'Glyphicons Halflings';
+src: url('../fonts/glyphicons-halflings-regular.eot');
+src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
+}
+
+TO
+
+@font-face {
+font-family: 'Glyphicons Halflings';
+src: url('/assets/glyphicons-halflings-regular.eot');
+src: url('/assets/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/assets/glyphicons-halflings-regular.woff') format('woff'), url('/assets/glyphicons-halflings-regular.ttf') format('truetype'), url('/assets/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
+}
+
+
+Totally 5 fixes (from '../fonts/' -> '/assets/'). Rails will find all assets in subdirs of assets (app, lib, vendor). There is no strict of subdirs' name.
